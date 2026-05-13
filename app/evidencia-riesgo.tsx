@@ -15,6 +15,7 @@ export default function EvidenciaRiesgoScreen() {
   const nivel = Number(params.nivel ?? 3) as 1 | 2 | 3 | 4 | 5;
 
   const [imagenes, setImagenes] = useState<Evidencia[]>([]);
+  const [guardando, setGuardando] = useState(false);
 
   async function seleccionarImagen() {
     try {
@@ -50,16 +51,30 @@ export default function EvidenciaRiesgoScreen() {
         setImagenes((prev) => [nuevaImagen, ...prev]);
       }
     } catch (error) {
-      console.log(error);
+      console.log('Error al seleccionar imagen:', error);
       Alert.alert('Error', 'No se pudo seleccionar la imagen');
     }
   }
 
   async function handleGuardarRiesgo() {
+    if (guardando) return;
+
+    setGuardando(true);
+
+    console.log('Presionaste Guardar riesgo');
+
     const usuarioActual = await obtenerUsuarioActual();
 
     if (!usuarioActual) {
-      Alert.alert('Sesión no válida', 'Debes iniciar sesión nuevamente');
+      console.log('No hay usuario actual');
+
+      if (Platform.OS === 'web') {
+        window.alert('Sesión no válida. Debes iniciar sesión nuevamente');
+      } else {
+        Alert.alert('Sesión no válida', 'Debes iniciar sesión nuevamente');
+      }
+
+      setGuardando(false);
       router.replace('/login');
       return;
     }
@@ -82,17 +97,29 @@ export default function EvidenciaRiesgoScreen() {
     };
 
     try {
+      console.log('Guardando riesgo:', nuevoRiesgo);
+
       await agregarRiesgo(nuevoRiesgo);
 
-      router.push({
-        pathname: '/detalle-riesgo',
-        params: {
-          id: nuevoRiesgo.id,
-        },
-      });
+      console.log('Riesgo guardado correctamente');
+
+      if (Platform.OS === 'web') {
+        window.alert('Riesgo reportado correctamente');
+      } else {
+        Alert.alert('Riesgo guardado', 'El riesgo fue reportado correctamente');
+      }
+
+      router.replace('/lista-riesgos');
     } catch (error) {
-      console.log(error);
-      Alert.alert('Error', 'No se pudo guardar el riesgo');
+      console.log('Error al guardar riesgo:', error);
+
+      if (Platform.OS === 'web') {
+        window.alert('No se pudo guardar el riesgo');
+      } else {
+        Alert.alert('Error', 'No se pudo guardar el riesgo');
+      }
+
+      setGuardando(false);
     }
   }
 
@@ -139,10 +166,13 @@ export default function EvidenciaRiesgoScreen() {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.buttonSave}
+        style={[styles.buttonSave, guardando && styles.buttonDisabled]}
         onPress={handleGuardarRiesgo}
+        disabled={guardando}
       >
-        <Text style={styles.buttonText}>Guardar riesgo</Text>
+        <Text style={styles.buttonText}>
+          {guardando ? 'Guardando...' : 'Guardar riesgo'}
+        </Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -204,6 +234,9 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     borderRadius: 12,
     marginTop: 12,
+  },
+  buttonDisabled: {
+    opacity: 0.6,
   },
   buttonText: {
     color: '#FFFFFF',

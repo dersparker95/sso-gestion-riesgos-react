@@ -2,9 +2,9 @@ import * as ImagePicker from 'expo-image-picker';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { Alert, Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { obtenerUsuarioActualService } from '../services/authService';
+import { crearRiesgoService } from '../services/riesgosService';
 import { Evidencia, Riesgo } from '../types/riesgo';
-import { obtenerUsuarioActual } from '../utils/auth';
-import { agregarRiesgo } from '../utils/storage';
 
 export default function EvidenciaRiesgoScreen() {
   const params = useLocalSearchParams();
@@ -29,18 +29,13 @@ export default function EvidenciaRiesgoScreen() {
       const resultado = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ['images'],
         allowsEditing: true,
-        quality: 0.7,
-        base64: true,
+        quality: 0.4,
       });
 
       if (!resultado.canceled) {
         const asset = resultado.assets[0];
 
-        let uriFinal = asset.uri;
-
-        if (Platform.OS === 'web' && asset.base64) {
-          uriFinal = `data:image/jpeg;base64,${asset.base64}`;
-        }
+        const uriFinal = asset.uri;
 
         const nuevaImagen: Evidencia = {
           id: Date.now().toString(),
@@ -63,7 +58,7 @@ export default function EvidenciaRiesgoScreen() {
 
     console.log('Presionaste Guardar riesgo');
 
-    const usuarioActual = await obtenerUsuarioActual();
+    const usuarioActual = await obtenerUsuarioActualService();
 
     if (!usuarioActual) {
       console.log('No hay usuario actual');
@@ -99,7 +94,7 @@ export default function EvidenciaRiesgoScreen() {
     try {
       console.log('Guardando riesgo:', nuevoRiesgo);
 
-      await agregarRiesgo(nuevoRiesgo);
+      await crearRiesgoService(nuevoRiesgo);
 
       console.log('Riesgo guardado correctamente');
 

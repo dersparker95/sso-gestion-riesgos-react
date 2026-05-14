@@ -1,8 +1,8 @@
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { listarRiesgosService } from '../services/riesgosService';
 import { Riesgo } from '../types/riesgo';
-import { obtenerRiesgos } from '../utils/storage';
 
 function colorNivel(nivel: number) {
   if (nivel === 5) return '#D32F2F';
@@ -90,8 +90,18 @@ export default function ListaRiesgosScreen() {
   const [filtroNivel, setFiltroNivel] = useState('Todos');
 
   async function cargarRiesgos() {
-    const data = await obtenerRiesgos();
-    setRiesgos(data);
+    try {
+      console.log('Cargando riesgos desde listarRiesgosService');
+
+      const data = await listarRiesgosService();
+
+      console.log('Riesgos cargados:', data);
+
+      setRiesgos(data);
+    } catch (error) {
+      console.log('Error al cargar riesgos:', error);
+      setRiesgos([]);
+    }
   }
 
   useFocusEffect(

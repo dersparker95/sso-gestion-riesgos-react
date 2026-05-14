@@ -21,20 +21,31 @@ export async function obtenerRiesgos(): Promise<Riesgo[]> {
 
 export async function guardarRiesgos(riesgos: Riesgo[]) {
   try {
+    const data = JSON.stringify(riesgos);
+
     if (Platform.OS === 'web') {
-      localStorage.setItem(RIESGOS_KEY, JSON.stringify(riesgos));
+      localStorage.setItem(RIESGOS_KEY, data);
+
+      const verificacion = localStorage.getItem(RIESGOS_KEY);
+
+      if (!verificacion) {
+        throw new Error('No se pudo verificar el guardado en localStorage');
+      }
+
       return;
     }
 
-    await AsyncStorage.setItem(RIESGOS_KEY, JSON.stringify(riesgos));
+    await AsyncStorage.setItem(RIESGOS_KEY, data);
   } catch (error) {
     console.log('Error al guardar riesgos:', error);
+    throw error;
   }
 }
 
 export async function agregarRiesgo(riesgo: Riesgo) {
   const actuales = await obtenerRiesgos();
   const nuevos = [riesgo, ...actuales];
+
   await guardarRiesgos(nuevos);
 }
 

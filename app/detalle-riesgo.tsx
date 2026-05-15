@@ -11,9 +11,12 @@ import {
   View,
 } from 'react-native';
 import { Usuario } from '../data/usuarios';
+import { obtenerUsuarioActualService } from '../services/authService';
+import {
+  actualizarEstadoRiesgoService,
+  obtenerRiesgoPorIdService,
+} from '../services/riesgosService';
 import { Riesgo } from '../types/riesgo';
-import { obtenerUsuarioActual } from '../utils/auth';
-import { actualizarEstadoRiesgo, obtenerRiesgoPorId } from '../utils/storage';
 
 function colorNivel(nivel: number) {
   if (nivel === 5) return '#D32F2F';
@@ -59,19 +62,27 @@ export default function DetalleRiesgoScreen() {
   const [usuario, setUsuario] = useState<Usuario | null>(null);
   const [riesgo, setRiesgo] = useState<Riesgo | null>(null);
   const [cargando, setCargando] = useState(true);
+  const [actualizando, setActualizando] = useState(false);
 
   async function cargarDatos() {
-    setCargando(true);
+    try {
+      setCargando(true);
 
-    const actual = await obtenerUsuarioActual();
-    setUsuario(actual);
+      const actual = await obtenerUsuarioActualService();
+      setUsuario(actual);
 
-    if (id) {
-      const riesgoEncontrado = await obtenerRiesgoPorId(id);
-      setRiesgo(riesgoEncontrado);
+      if (id) {
+        const riesgoEncontrado = await obtenerRiesgoPorIdService(id);
+        setRiesgo(riesgoEncontrado);
+      } else {
+        setRiesgo(null);
+      }
+    } catch (error) {
+      console.log('Error al cargar detalle del riesgo:', error);
+      setRiesgo(null);
+    } finally {
+      setCargando(false);
     }
-
-    setCargando(false);
   }
 
   useFocusEffect(
@@ -81,11 +92,22 @@ export default function DetalleRiesgoScreen() {
   );
 
   async function cambiarEstado(nuevoEstado: 'Pendiente' | 'En revisión' | 'Cerrado') {
-    if (!riesgo) return;
+    if (!riesgo || actualizando) return;
 
-    await actualizarEstadoRiesgo(riesgo.id, nuevoEstado);
-    Alert.alert('Estado actualizado', `El riesgo ahora está en "${nuevoEstado}"`);
-    cargarDatos();
+    try {
+      setActualizando(true);
+
+      await actualizarEstadoRiesgoService(riesgo.id, nuevoEstado);
+
+      Alert.alert('Estado actualizado', `El riesgo ahora está en "${nuevoEstado}"`);
+
+      await cargarDatos();
+    } catch (error) {
+      console.log('Error al actualizar estado:', error);
+      Alert.alert('Error', 'No se pudo actualizar el estado del riesgo');
+    } finally {
+      setActualizando(false);
+    }
   }
 
   if (cargando) {
@@ -197,6 +219,10 @@ export default function DetalleRiesgoScreen() {
       {puedeCambiarEstado && (
         <View style={styles.card}>
           <Text style={styles.label}>Cambiar estado</Text>
+
+          {actualizando && (
+            <Text style={styles.actualizandoText}>Actualizando estado...</Text>
+          )}
 
           <View style={styles.estadoRow}>
             <BotonEstado
@@ -322,6 +348,10 @@ const styles = StyleSheet.create({
   },
   estadoButtonTextActivo: {
     color: '#FFFFFF',
+  },
+  actualizandoText: {
+    color: '#CCCCCC',
+    marginTop: 10,
   },
   buttonSecondary: {
     backgroundColor: '#F57C00',

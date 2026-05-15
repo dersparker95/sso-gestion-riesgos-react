@@ -1,0 +1,46 @@
+[
+  {
+    "id": "1778862389912",
+    "titulo": "aaaaaaaa",
+    "descripcion": "aaaaaaaa",
+    "categoria": "Orden y limpieza",
+    "nivel": 3,
+    "estado": "Pendiente",
+    "fecha": "15/5/2026",
+    "evidencias": [
+      {
+        "id": "1778862387986",
+        "uri": "blob:http://localhost:8081/1f7d8b0a-09a4-421a-b9c0-624e866b547b",
+        "tipo": "foto"
+      }
+    ],
+    "reportadoPor": {
+      "nombre": "Ana Rojas",
+      "correo": "ana.rojas@empresa.cl",
+      "rol": "Administrador",
+      "faena": "Casa Matriz"
+    }
+  },
+  {
+    "id": "1778855649043",
+    "titulo": "cables sueltos",
+    "descripcion": "cables mal puestos en el camino",
+    "categoria": "Electricidad",
+    "nivel": 3,
+    "estado": "Pendiente",
+    "fecha": "15/5/2026",
+    "evidencias": [
+      {
+        "id": "1778855647045",
+        "uri": "blob:http://localhost:8081/3a75dbe4-818a-4ed0-8f30-04c459021fab",
+        "tipo": "foto"
+      }
+    ],
+    "reportadoPor": {
+      "nombre": "Juan Pérez",
+      "correo": "juan.perez@empresa.cl",
+      "rol": "Trabajador",
+      "faena": "Faena Norte"
+    }
+  }
+]

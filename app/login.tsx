@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { iniciarSesion } from '../utils/auth';
+import { iniciarSesionService } from '../services/authService';
 
 export default function LoginScreen() {
   const [correo, setCorreo] = useState('');
@@ -13,7 +13,7 @@ export default function LoginScreen() {
       return;
     }
 
-    const usuario = await iniciarSesion(correo.trim(), password.trim());
+    const usuario = await iniciarSesionService(correo.trim(), password.trim());
 
     if (!usuario) {
       Alert.alert('Acceso denegado', 'Correo o contraseña incorrectos');

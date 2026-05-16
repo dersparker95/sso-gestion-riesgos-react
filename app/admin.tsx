@@ -83,6 +83,23 @@ function BarraProgreso({
   );
 }
 
+function AlertaCard({
+  emoji,
+  mensaje,
+  color,
+}: {
+  emoji: string;
+  mensaje: string;
+  color: string;
+}) {
+  return (
+    <View style={[styles.alertaCard, { borderLeftColor: color }]}>
+      <Text style={styles.alertaEmoji}>{emoji}</Text>
+      <Text style={styles.alertaMensaje}>{mensaje}</Text>
+    </View>
+  );
+}
+
 export default function AdminScreen() {
   const [riesgos, setRiesgos] = useState<Riesgo[]>([]);
   const [cargando, setCargando] = useState(true);
@@ -153,6 +170,79 @@ export default function AdminScreen() {
     [riesgos]
   );
 
+  // Alertas predictivas automáticas
+  const alertas = useMemo(() => {
+    const lista: { emoji: string; mensaje: string; color: string }[] = [];
+
+    if (riesgos.length === 0) return lista;
+
+    // Alerta riesgos críticos sin cerrar
+    const criticosPendientes = riesgos.filter(
+      (r) => r.nivel >= 4 && r.estado !== 'Cerrado'
+    ).length;
+    if (criticosPendientes > 0) {
+      lista.push({
+        emoji: '🔴',
+        mensaje: `${criticosPendientes} riesgo${criticosPendientes > 1 ? 's' : ''} crítico${criticosPendientes > 1 ? 's' : ''} sin cerrar. Se recomienda atención inmediata.`,
+        color: '#D32F2F',
+      });
+    }
+
+    // Alerta muchos pendientes
+    const pctPendientes = (porEstado.pendiente / riesgos.length) * 100;
+    if (pctPendientes > 60) {
+      lista.push({
+        emoji: '⚠️',
+        mensaje: `El ${Math.round(pctPendientes)}% de los riesgos están pendientes. Se recomienda acelerar la revisión.`,
+        color: '#F57C00',
+      });
+    }
+
+    // Alerta categoría dominante
+    if (porCategoria.length > 0) {
+      const [categoriaMayor, cantidadMayor] = porCategoria[0];
+      const pctCategoria = (cantidadMayor / riesgos.length) * 100;
+      if (pctCategoria >= 50) {
+        lista.push({
+          emoji: '📍',
+          mensaje: `La categoría "${categoriaMayor}" concentra el ${Math.round(pctCategoria)}% de los riesgos. Considera medidas preventivas en esta área.`,
+          color: '#7B1FA2',
+        });
+      }
+    }
+
+    // Alerta nivel promedio alto
+    const promedio = riesgos.reduce((acc, r) => acc + r.nivel, 0) / riesgos.length;
+    if (promedio >= 3.5) {
+      lista.push({
+        emoji: '📈',
+        mensaje: `El nivel promedio de riesgo es ${promedio.toFixed(1)}, lo que indica una tendencia hacia riesgos de gravedad media-alta.`,
+        color: '#FBC02D',
+      });
+    }
+
+    // Alerta pocos cerrados
+    const pctCerrados = (porEstado.cerrado / riesgos.length) * 100;
+    if (pctCerrados < 20 && riesgos.length >= 3) {
+      lista.push({
+        emoji: '⏳',
+        mensaje: `Solo el ${Math.round(pctCerrados)}% de los riesgos han sido cerrados. Se recomienda hacer seguimiento activo.`,
+        color: '#1976D2',
+      });
+    }
+
+    // Todo bajo control
+    if (lista.length === 0) {
+      lista.push({
+        emoji: '✅',
+        mensaje: 'No se detectan alertas críticas. El sistema está bajo control.',
+        color: '#388E3C',
+      });
+    }
+
+    return lista;
+  }, [riesgos, porEstado, porCategoria]);
+
   if (cargando) {
     return (
       <View style={styles.loadingContainer}>
@@ -165,6 +255,19 @@ export default function AdminScreen() {
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <Text style={styles.title}>Panel Administrativo</Text>
       <Text style={styles.subtitle}>Estadísticas y análisis de riesgos</Text>
+
+      {/* Alertas predictivas */}
+      <Text style={styles.seccionTitulo}>🔍 Análisis Predictivo</Text>
+      <View style={styles.seccionBox}>
+        {alertas.map((alerta, index) => (
+          <AlertaCard
+            key={index}
+            emoji={alerta.emoji}
+            mensaje={alerta.mensaje}
+            color={alerta.color}
+          />
+        ))}
+      </View>
 
       <Text style={styles.seccionTitulo}>Resumen General</Text>
       <View style={styles.statsGrid}>
@@ -294,6 +397,9 @@ const styles = StyleSheet.create({
   ultimoRiesgoNivel: { fontSize: 13, fontWeight: 'bold' },
   ultimoRiesgoEstado: { fontSize: 11 },
   emptyText: { color: '#888888', textAlign: 'center' },
+  alertaCard: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, borderLeftWidth: 3, paddingLeft: 12, paddingVertical: 6 },
+  alertaEmoji: { fontSize: 18 },
+  alertaMensaje: { color: '#CCCCCC', fontSize: 13, flex: 1, lineHeight: 20 },
   button: { backgroundColor: '#C62828', paddingVertical: 16, borderRadius: 12, marginTop: 8 },
   buttonText: { color: '#FFFFFF', textAlign: 'center', fontWeight: 'bold', fontSize: 16 },
 });

@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8000/v1';
+const API_BASE_URL = 'https://sso-gestion-riesgos-backend.onrender.com/v1';
 
 type MetodoHttp = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 

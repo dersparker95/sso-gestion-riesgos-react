@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 const path = require('path');
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 const riesgosPath = path.join(__dirname, 'database', 'riesgos.json');
 const usuariosPath = path.join(__dirname, 'database', 'usuarios.json');

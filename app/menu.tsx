@@ -3,7 +3,7 @@ import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Usuario } from '../data/usuarios';
-import { obtenerUsuarioActual } from '../utils/auth';
+import { obtenerUsuarioActualService } from '../services/authService';
 
 function Card({
   icon,
@@ -36,7 +36,7 @@ export default function MenuScreen() {
 
   async function cargarUsuario() {
     setCargando(true);
-    const actual = await obtenerUsuarioActual();
+    const actual = await obtenerUsuarioActualService();
     setUsuario(actual);
     setCargando(false);
   }
@@ -121,6 +121,15 @@ export default function MenuScreen() {
           title="Usuarios"
           subtitle="Ver perfiles registrados en el sistema"
           route="/usuarios"
+        />
+      )}
+
+      {esAdministrador && (
+        <Card
+          icon="bar-chart-outline"
+          title="Panel Administrativo"
+          subtitle="Estadísticas y análisis de riesgos"
+          route="/admin"
         />
       )}
 

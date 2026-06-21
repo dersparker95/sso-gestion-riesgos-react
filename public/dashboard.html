@@ -18,470 +18,133 @@
       --text: #ffffff;
       --text2: #aaaacc;
       --text3: #666680;
-      --critical: #d32f2f;
-      --high: #f57c00;
-      --medium: #fbc02d;
-      --low: #689f38;
       --verylow: #388e3c;
     }
 
-    body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      display: flex;
-      min-height: 100vh;
-    }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
 
-    /* LOGIN */
-    .login-screen {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      min-height: 100vh;
-      background: var(--bg);
-    }
-
-    .login-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 40px;
-      width: 100%;
-      max-width: 400px;
-    }
-
-    .login-logo {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-
-    .login-logo h1 {
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--accent);
-      letter-spacing: 1px;
-    }
-
-    .login-logo p {
-      font-size: 13px;
-      color: var(--text3);
-      margin-top: 6px;
-    }
-
-    .login-field {
-      margin-bottom: 16px;
-    }
-
-    .login-field label {
-      display: block;
-      font-size: 12px;
-      color: var(--text2);
-      margin-bottom: 6px;
-    }
-
-    .login-field input {
-      width: 100%;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 12px 14px;
-      border-radius: 8px;
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .login-field input:focus {
-      border-color: var(--accent);
-    }
-
-    .login-btn {
-      width: 100%;
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 8px;
-      transition: opacity 0.2s;
-    }
-
+    .login-screen { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 100vh; background: var(--bg); }
+    .login-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px; width: 100%; max-width: 400px; }
+    .login-logo { text-align: center; margin-bottom: 32px; }
+    .login-logo h1 { font-size: 24px; font-weight: 800; color: var(--accent); letter-spacing: 1px; }
+    .login-logo p { font-size: 13px; color: var(--text3); margin-top: 6px; }
+    .login-field { margin-bottom: 16px; }
+    .login-field label { display: block; font-size: 12px; color: var(--text2); margin-bottom: 6px; }
+    .login-field input { width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 12px 14px; border-radius: 8px; font-size: 14px; outline: none; transition: border-color 0.2s; }
+    .login-field input:focus { border-color: var(--accent); }
+    .login-btn { width: 100%; background: var(--accent); color: white; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: opacity 0.2s; }
     .login-btn:hover { opacity: 0.85; }
     .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .login-error { background: #d32f2f22; border: 1px solid #d32f2f; color: #d32f2f; padding: 10px 14px; border-radius: 8px; font-size: 13px; margin-top: 12px; display: none; }
 
-    .login-error {
-      background: #d32f2f22;
-      border: 1px solid #d32f2f;
-      color: #d32f2f;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      margin-top: 12px;
-      display: none;
-    }
-
-    /* SIDEBAR */
-    .sidebar {
-      width: 240px;
-      background: var(--surface);
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      height: 100vh;
-      z-index: 100;
-    }
-
-    .sidebar-logo {
-      padding: 24px 20px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .sidebar-logo h1 {
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--accent);
-      letter-spacing: 1px;
-    }
-
-    .sidebar-logo p {
-      font-size: 11px;
-      color: var(--text3);
-      margin-top: 4px;
-    }
-
-    .sidebar-nav {
-      padding: 16px 0;
-      flex: 1;
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 20px;
-      cursor: pointer;
-      color: var(--text2);
-      font-size: 14px;
-      border-left: 3px solid transparent;
-      transition: all 0.2s;
-    }
-
-    .nav-item:hover, .nav-item.active {
-      background: var(--surface2);
-      color: var(--text);
-      border-left-color: var(--accent);
-    }
-
+    .sidebar { width: 240px; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; height: 100vh; z-index: 100; overflow-y: auto; }
+    .sidebar-logo { padding: 24px 20px; border-bottom: 1px solid var(--border); }
+    .sidebar-logo h1 { font-size: 18px; font-weight: 800; color: var(--accent); letter-spacing: 1px; }
+    .sidebar-logo p { font-size: 11px; color: var(--text3); margin-top: 4px; }
+    .sidebar-nav { padding: 16px 0; flex: 1; }
+    .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 20px; cursor: pointer; color: var(--text2); font-size: 14px; border-left: 3px solid transparent; transition: all 0.2s; }
+    .nav-item:hover, .nav-item.active { background: var(--surface2); color: var(--text); border-left-color: var(--accent); }
     .nav-item .icon { font-size: 18px; }
+    .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text3); }
+    .btn-logout { background: none; border: 1px solid var(--border); color: var(--text2); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; margin-top: 8px; width: 100%; transition: all 0.2s; }
+    .btn-logout:hover { border-color: var(--accent); color: var(--accent); }
 
-    .sidebar-footer {
-      padding: 16px 20px;
-      border-top: 1px solid var(--border);
-      font-size: 12px;
-      color: var(--text3);
-    }
-
-    .btn-logout {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--text2);
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 12px;
-      margin-top: 8px;
-      width: 100%;
-      transition: all 0.2s;
-    }
-
-    .btn-logout:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* MAIN */
-    .main {
-      margin-left: 240px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .topbar {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
-
+    .main { margin-left: 240px; flex: 1; display: flex; flex-direction: column; }
+    .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
     .topbar h2 { font-size: 20px; font-weight: 700; }
     .topbar p { font-size: 13px; color: var(--text3); margin-top: 2px; }
-
-    .topbar-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .btn-refresh {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 600;
-      transition: opacity 0.2s;
-    }
-
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .btn-refresh { background: var(--accent); color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; transition: opacity 0.2s; }
     .btn-refresh:hover { opacity: 0.85; }
-
-    .badge-online {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: var(--verylow);
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--verylow);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
+    .badge-online { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--verylow); }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--verylow); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
     .content { padding: 32px; flex: 1; }
-
-    .loading {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 400px;
-      gap: 16px;
-      color: var(--text2);
-    }
-
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 3px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
+    .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 400px; gap: 16px; color: var(--text2); }
+    .spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      border-top: 3px solid transparent;
-      transition: transform 0.2s;
-    }
-
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; border-top: 3px solid transparent; transition: transform 0.2s; }
     .stat-card:hover { transform: translateY(-2px); }
     .stat-card .value { font-size: 36px; font-weight: 800; }
     .stat-card .label { font-size: 13px; color: var(--text2); margin-top: 4px; }
     .stat-card .sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
 
-    .charts-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .chart-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-    }
-
+    .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
     .chart-card.full { grid-column: 1 / -1; }
-
-    .chart-title {
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
+    .chart-title { font-size: 15px; font-weight: 700; margin-bottom: 16px; }
 
     .heatmap-grid { display: grid; gap: 4px; }
-
-    .heatmap-cell {
-      height: 36px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 700;
-      color: white;
-      transition: transform 0.2s;
-      cursor: pointer;
-      position: relative;
-    }
-
+    .heatmap-cell { height: 36px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: white; transition: transform 0.2s; cursor: pointer; position: relative; }
     .heatmap-cell:hover { transform: scale(1.05); z-index: 10; }
     .heatmap-label { font-size: 12px; color: var(--text3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .heatmap-header { font-size: 11px; color: var(--text3); text-align: center; }
 
-    .alertas-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .alerta-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px;
-      border-left: 4px solid transparent;
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-
+    .alertas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .alerta-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; border-left: 4px solid transparent; display: flex; gap: 12px; align-items: flex-start; }
     .alerta-emoji { font-size: 22px; }
     .alerta-titulo { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
     .alerta-msg { font-size: 12px; color: var(--text2); line-height: 1.5; }
 
-    .table-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 24px;
-    }
-
-    .table-header {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
+    .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
+    .table-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
     .table-title { font-size: 15px; font-weight: 700; }
     .table-filters { display: flex; gap: 8px; }
-
-    .filter-select {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 6px 10px;
-      border-radius: 6px;
-      font-size: 12px;
-      cursor: pointer;
-    }
-
+    .filter-select { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 6px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; }
     table { width: 100%; border-collapse: collapse; }
-
-    th {
-      background: var(--surface2);
-      padding: 10px 16px;
-      text-align: left;
-      font-size: 11px;
-      color: var(--text3);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
+    th { background: var(--surface2); padding: 10px 16px; text-align: left; font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; }
     td { padding: 12px 16px; border-top: 1px solid var(--border); font-size: 13px; }
     tr:hover td { background: var(--surface2); }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
 
-    .badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .prediccion-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 24px;
-    }
-
+    .prediccion-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px; }
     .prediccion-titulo { font-size: 15px; font-weight: 700; margin-bottom: 16px; }
-
-    .prediccion-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .prediccion-item {
-      background: var(--surface2);
-      border-radius: 10px;
-      padding: 16px;
-      text-align: center;
-    }
-
+    .prediccion-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .prediccion-item { background: var(--surface2); border-radius: 10px; padding: 16px; text-align: center; }
     .prediccion-valor { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
     .prediccion-label { font-size: 12px; color: var(--text2); }
     .prediccion-desc { font-size: 11px; color: var(--text3); margin-top: 4px; }
 
-    .section-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      margin-top: 8px;
-    }
-
+    .section-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; margin-top: 8px; }
     .empty-state { text-align: center; padding: 40px; color: var(--text3); }
-
-    .tooltip {
-      position: absolute;
-      background: #1a1a26;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 6px 10px;
-      font-size: 11px;
-      white-space: nowrap;
-      pointer-events: none;
-      z-index: 100;
-      bottom: calc(100% + 6px);
-      left: 50%;
-      transform: translateX(-50%);
-      display: none;
-    }
-
+    .tooltip { position: absolute; background: #1a1a26; border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; font-size: 11px; white-space: nowrap; pointer-events: none; z-index: 100; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); display: none; }
     .heatmap-cell:hover .tooltip { display: block; }
+
+    /* EQUIPOS */
+    .equipos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .equipo-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .equipo-nombre { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .equipo-desc { font-size: 13px; color: var(--text2); margin-bottom: 12px; }
+    .equipo-miembros { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .miembro-badge { background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 4px 10px; font-size: 12px; display: flex; align-items: center; gap: 6px; }
+    .miembro-remove { cursor: pointer; color: var(--accent); font-weight: bold; }
+    .equipo-actions { display: flex; gap: 8px; }
+    .btn-sm { padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; transition: opacity 0.2s; }
+    .btn-sm:hover { opacity: 0.8; }
+    .btn-primary { background: var(--accent); color: white; }
+    .btn-secondary { background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+    .btn-danger { background: #d32f2f22; color: #d32f2f; border: 1px solid #d32f2f; }
+
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; display: flex; align-items: center; justify-content: center; }
+    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; width: 100%; max-width: 480px; }
+    .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+    .modal-field { margin-bottom: 14px; }
+    .modal-field label { display: block; font-size: 12px; color: var(--text2); margin-bottom: 6px; }
+    .modal-field input, .modal-field textarea, .modal-field select { width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 10px 12px; border-radius: 8px; font-size: 14px; outline: none; }
+    .modal-field textarea { resize: vertical; min-height: 80px; }
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+
+    /* RESOLUCIONES */
+    .resolucion-card { background: var(--surface2); border-radius: 10px; padding: 16px; margin-bottom: 12px; border-left: 3px solid var(--accent2); }
+    .resolucion-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .resolucion-responsable { font-size: 13px; font-weight: 700; color: var(--text); }
+    .resolucion-fecha { font-size: 12px; color: var(--text3); }
+    .resolucion-desc { font-size: 13px; color: var(--text2); margin-bottom: 6px; }
+    .resolucion-acciones { font-size: 13px; color: var(--text); }
   </style>
 </head>
 <body>
@@ -507,7 +170,7 @@
 </div>
 
 <!-- DASHBOARD -->
-<div id="dashboard-screen" style="display:none; width:100%; display:none">
+<div id="dashboard-screen" style="display:none; width:100%">
 
   <aside class="sidebar">
     <div class="sidebar-logo">
@@ -515,21 +178,12 @@
       <p id="usuario-nombre">Panel Administrativo</p>
     </div>
     <nav class="sidebar-nav">
-      <div class="nav-item active" onclick="showSection('dashboard')">
-        <span class="icon">📊</span> Dashboard
-      </div>
-      <div class="nav-item" onclick="showSection('heatmap')">
-        <span class="icon">🗺️</span> Mapa de Calor
-      </div>
-      <div class="nav-item" onclick="showSection('prediccion')">
-        <span class="icon">🔮</span> Predicción
-      </div>
-      <div class="nav-item" onclick="showSection('tabla')">
-        <span class="icon">🗂️</span> Riesgos
-      </div>
-      <div class="nav-item" onclick="showSection('alertas')">
-        <span class="icon">⚠️</span> Alertas
-      </div>
+      <div class="nav-item active" onclick="showSection('dashboard')"><span class="icon">📊</span> Dashboard</div>
+      <div class="nav-item" onclick="showSection('heatmap')"><span class="icon">🗺️</span> Mapa de Calor</div>
+      <div class="nav-item" onclick="showSection('prediccion')"><span class="icon">🔮</span> Predicción</div>
+      <div class="nav-item" onclick="showSection('tabla')"><span class="icon">🗂️</span> Riesgos</div>
+      <div class="nav-item" onclick="showSection('equipos')"><span class="icon">👥</span> Equipos</div>
+      <div class="nav-item" onclick="showSection('alertas')"><span class="icon">⚠️</span> Alertas</div>
     </nav>
     <div class="sidebar-footer">
       <div id="last-update">Cargando...</div>
@@ -544,60 +198,44 @@
         <p id="section-sub">Resumen ejecutivo del sistema de riesgos</p>
       </div>
       <div class="topbar-right">
-        <div class="badge-online">
-          <div class="dot"></div>
-          Backend conectado
-        </div>
+        <div class="badge-online"><div class="dot"></div>Backend conectado</div>
         <button class="btn-refresh" onclick="cargarDatos()">↻ Actualizar</button>
       </div>
     </div>
 
     <div class="content">
-      <div id="loading" class="loading">
-        <div class="spinner"></div>
-        <p>Cargando datos...</p>
-      </div>
+      <div id="loading" class="loading"><div class="spinner"></div><p>Cargando datos...</p></div>
 
       <div id="app" style="display:none">
 
+        <!-- DASHBOARD -->
         <div id="section-dashboard">
           <div class="stats-grid" id="stats-grid"></div>
           <div class="charts-grid">
-            <div class="chart-card">
-              <div class="chart-title">📊 Riesgos por Estado</div>
-              <canvas id="chart-estado" height="200"></canvas>
-            </div>
-            <div class="chart-card">
-              <div class="chart-title">⚠️ Distribución por Nivel</div>
-              <canvas id="chart-nivel" height="200"></canvas>
-            </div>
-            <div class="chart-card full">
-              <div class="chart-title">🏷️ Riesgos por Categoría</div>
-              <canvas id="chart-categoria" height="120"></canvas>
-            </div>
+            <div class="chart-card"><div class="chart-title">📊 Riesgos por Estado</div><canvas id="chart-estado" height="200"></canvas></div>
+            <div class="chart-card"><div class="chart-title">⚠️ Distribución por Nivel</div><canvas id="chart-nivel" height="200"></canvas></div>
+            <div class="chart-card full"><div class="chart-title">🏷️ Riesgos por Categoría</div><canvas id="chart-categoria" height="120"></canvas></div>
           </div>
         </div>
 
+        <!-- HEATMAP -->
         <div id="section-heatmap" style="display:none">
           <p class="section-title">🗺️ Mapa de Calor — Categoría vs Nivel</p>
-          <div class="chart-card">
-            <div id="heatmap-container"></div>
-          </div>
+          <div class="chart-card"><div id="heatmap-container"></div></div>
         </div>
 
+        <!-- PREDICCION -->
         <div id="section-prediccion" style="display:none">
           <p class="section-title">🔮 Análisis Predictivo</p>
           <div class="prediccion-card">
             <div class="prediccion-titulo">📈 Proyección próximos 30 días</div>
             <div class="prediccion-grid" id="prediccion-grid"></div>
           </div>
-          <div class="chart-card">
-            <div class="chart-title">📉 Tendencia histórica y proyección</div>
-            <canvas id="chart-tendencia" height="150"></canvas>
-          </div>
+          <div class="chart-card"><div class="chart-title">📉 Tendencia histórica y proyección</div><canvas id="chart-tendencia" height="150"></canvas></div>
           <div class="alertas-grid" id="alertas-prediccion"></div>
         </div>
 
+        <!-- TABLA -->
         <div id="section-tabla" style="display:none">
           <p class="section-title">🗂️ Todos los Riesgos</p>
           <div class="table-card">
@@ -621,21 +259,22 @@
               </div>
             </div>
             <table>
-              <thead>
-                <tr>
-                  <th>Título</th>
-                  <th>Categoría</th>
-                  <th>Nivel</th>
-                  <th>Estado</th>
-                  <th>Reportado por</th>
-                  <th>Fecha</th>
-                </tr>
-              </thead>
+              <thead><tr><th>Título</th><th>Categoría</th><th>Nivel</th><th>Estado</th><th>Equipo</th><th>Reportado por</th><th>Acciones</th></tr></thead>
               <tbody id="tabla-body"></tbody>
             </table>
           </div>
         </div>
 
+        <!-- EQUIPOS -->
+        <div id="section-equipos" style="display:none">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+            <p class="section-title" style="margin:0">👥 Gestión de Equipos</p>
+            <button class="btn-sm btn-primary" onclick="abrirModalEquipo()">+ Nuevo Equipo</button>
+          </div>
+          <div class="equipos-grid" id="equipos-container"></div>
+        </div>
+
+        <!-- ALERTAS -->
         <div id="section-alertas" style="display:none">
           <p class="section-title">⚠️ Centro de Alertas</p>
           <div class="alertas-grid" id="alertas-container"></div>
@@ -644,135 +283,143 @@
       </div>
     </div>
   </main>
+</div>
 
+<!-- MODAL EQUIPO -->
+<div id="modal-equipo" class="modal-overlay" style="display:none">
+  <div class="modal">
+    <div class="modal-title" id="modal-equipo-titulo">Nuevo Equipo</div>
+    <div class="modal-field">
+      <label>Nombre del equipo</label>
+      <input type="text" id="equipo-nombre" placeholder="Ej: Equipo Eléctrico" />
+    </div>
+    <div class="modal-field">
+      <label>Descripción</label>
+      <textarea id="equipo-desc" placeholder="Descripción del equipo..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-sm btn-secondary" onclick="cerrarModalEquipo()">Cancelar</button>
+      <button class="btn-sm btn-primary" onclick="guardarEquipo()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL AGREGAR MIEMBRO -->
+<div id="modal-miembro" class="modal-overlay" style="display:none">
+  <div class="modal">
+    <div class="modal-title">Agregar Miembro</div>
+    <div class="modal-field">
+      <label>Seleccionar usuario</label>
+      <select id="miembro-usuario">
+        <option value="">Selecciona un usuario...</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-sm btn-secondary" onclick="cerrarModalMiembro()">Cancelar</button>
+      <button class="btn-sm btn-primary" onclick="agregarMiembro()">Agregar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL RESOLUCIONES -->
+<div id="modal-resoluciones" class="modal-overlay" style="display:none">
+  <div class="modal" style="max-width:600px">
+    <div class="modal-title">📋 Resoluciones del Riesgo</div>
+    <div id="resoluciones-lista" style="max-height:300px;overflow-y:auto;margin-bottom:16px"></div>
+    <hr style="border-color:var(--border);margin-bottom:16px">
+    <div class="modal-field"><label>Descripción de la intervención</label><textarea id="resolucion-desc" placeholder="¿Qué se hizo?"></textarea></div>
+    <div class="modal-field"><label>Acciones tomadas</label><textarea id="resolucion-acciones" placeholder="Detalle de las acciones..."></textarea></div>
+    <div class="modal-actions">
+      <button class="btn-sm btn-secondary" onclick="cerrarModalResoluciones()">Cerrar</button>
+      <button class="btn-sm btn-primary" onclick="guardarResolucion()">Registrar Resolución</button>
+    </div>
+  </div>
 </div>
 
 <script>
 const API = 'https://sso-gestion-riesgos-backend.onrender.com/v1';
 let riesgos = [];
+let equipos = [];
+let usuarios = [];
 let charts = {};
+let equipoEditandoId = null;
+let equipoMiembroId = null;
+let riesgoResolucionId = null;
 
 const secciones = {
   dashboard: { title: 'Dashboard General', sub: 'Resumen ejecutivo del sistema de riesgos' },
   heatmap: { title: 'Mapa de Calor', sub: 'Distribución de riesgos por categoría y nivel' },
   prediccion: { title: 'Análisis Predictivo', sub: 'Proyecciones y tendencias futuras' },
   tabla: { title: 'Gestión de Riesgos', sub: 'Listado completo con filtros' },
+  equipos: { title: 'Gestión de Equipos', sub: 'Administrar equipos y miembros' },
   alertas: { title: 'Centro de Alertas', sub: 'Alertas automáticas del sistema' },
 };
+
+function token() { return localStorage.getItem('TOKEN_API'); }
 
 async function hacerLogin() {
   const correo = document.getElementById('login-correo').value.trim();
   const password = document.getElementById('login-password').value.trim();
   const btn = document.getElementById('login-btn');
   const error = document.getElementById('login-error');
-
   if (!correo || !password) return;
-
-  btn.disabled = true;
-  btn.textContent = 'Ingresando...';
-  error.style.display = 'none';
-
+  btn.disabled = true; btn.textContent = 'Ingresando...'; error.style.display = 'none';
   try {
-    const res = await fetch(`${API}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ correo, password })
-    });
-
-    if (!res.ok) throw new Error('Credenciales inválidas');
-
+    const res = await fetch(`${API}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ correo, password }) });
+    if (!res.ok) throw new Error();
     const data = await res.json();
-
-    if (data.user.rol !== 'Administrador') {
-      error.textContent = 'Solo los administradores pueden acceder al dashboard.';
-      error.style.display = 'block';
-      btn.disabled = false;
-      btn.textContent = 'Ingresar al Dashboard';
-      return;
-    }
-
+    if (data.user.rol !== 'Administrador') { error.textContent = 'Solo administradores pueden acceder.'; error.style.display = 'block'; btn.disabled = false; btn.textContent = 'Ingresar al Dashboard'; return; }
     localStorage.setItem('TOKEN_API', data.access_token);
     localStorage.setItem('USUARIO_ACTUAL', JSON.stringify(data.user));
-
     document.getElementById('usuario-nombre').textContent = data.user.nombre;
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('dashboard-screen').style.display = 'flex';
-
     cargarDatos();
-
   } catch (e) {
-    error.textContent = 'Correo o contraseña incorrectos';
-    error.style.display = 'block';
-    btn.disabled = false;
-    btn.textContent = 'Ingresar al Dashboard';
+    error.textContent = 'Correo o contraseña incorrectos'; error.style.display = 'block'; btn.disabled = false; btn.textContent = 'Ingresar al Dashboard';
   }
 }
 
 function cerrarSesion() {
-  localStorage.removeItem('TOKEN_API');
-  localStorage.removeItem('USUARIO_ACTUAL');
+  localStorage.removeItem('TOKEN_API'); localStorage.removeItem('USUARIO_ACTUAL');
   document.getElementById('dashboard-screen').style.display = 'none';
   document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('login-correo').value = '';
-  document.getElementById('login-password').value = '';
+  document.getElementById('login-correo').value = ''; document.getElementById('login-password').value = '';
 }
 
 function showSection(id) {
-  Object.keys(secciones).forEach(s => {
-    const el = document.getElementById(`section-${s}`);
-    if (el) el.style.display = s === id ? 'block' : 'none';
-  });
-  document.querySelectorAll('.nav-item').forEach((el, i) => {
-    el.classList.toggle('active', Object.keys(secciones)[i] === id);
-  });
+  Object.keys(secciones).forEach(s => { const el = document.getElementById(`section-${s}`); if (el) el.style.display = s === id ? 'block' : 'none'; });
+  document.querySelectorAll('.nav-item').forEach((el, i) => { el.classList.toggle('active', Object.keys(secciones)[i] === id); });
   document.getElementById('section-title').textContent = secciones[id].title;
   document.getElementById('section-sub').textContent = secciones[id].sub;
+  if (id === 'equipos') cargarEquipos();
 }
 
-function colorNivel(n) {
-  return ['#388e3c','#689f38','#fbc02d','#f57c00','#d32f2f'][n-1] || '#888';
-}
-
-function textoNivel(n) {
-  return ['Muy bajo','Bajo','Medio','Alto','Crítico'][n-1] || '?';
-}
-
-function colorEstado(e) {
-  if (e === 'Pendiente') return '#f57c00';
-  if (e === 'En revisión') return '#1976d2';
-  return '#388e3c';
-}
+function colorNivel(n) { return ['#388e3c','#689f38','#fbc02d','#f57c00','#d32f2f'][n-1] || '#888'; }
+function textoNivel(n) { return ['Muy bajo','Bajo','Medio','Alto','Crítico'][n-1] || '?'; }
+function colorEstado(e) { if (e === 'Pendiente') return '#f57c00'; if (e === 'En revisión') return '#1976d2'; return '#388e3c'; }
 
 async function cargarDatos() {
   document.getElementById('loading').style.display = 'flex';
   document.getElementById('app').style.display = 'none';
-
   try {
-    const token = localStorage.getItem('TOKEN_API');
-    const res = await fetch(`${API}/incidents`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    if (!res.ok) throw new Error('No autorizado');
-    riesgos = await res.json();
+    const [resRiesgos, resUsuarios] = await Promise.all([
+      fetch(`${API}/incidents`, { headers: { Authorization: `Bearer ${token()}` } }),
+      fetch(`${API}/users`, { headers: { Authorization: `Bearer ${token()}` } })
+    ]);
+    if (!resRiesgos.ok) throw new Error();
+    riesgos = await resRiesgos.json();
+    if (resUsuarios.ok) usuarios = await resUsuarios.json();
     renderTodo();
     document.getElementById('last-update').textContent = `Actualizado: ${new Date().toLocaleTimeString('es-CL')}`;
   } catch (e) {
-    document.getElementById('loading').innerHTML = '<p style="color:#d32f2f">Error al conectar con el backend</p>';
-    return;
+    document.getElementById('loading').innerHTML = '<p style="color:#d32f2f">Error al conectar con el backend</p>'; return;
   }
-
   document.getElementById('loading').style.display = 'none';
   document.getElementById('app').style.display = 'block';
 }
 
-function renderTodo() {
-  renderStats();
-  renderCharts();
-  renderHeatmap();
-  renderTabla();
-  renderAlertas();
-  renderPrediccion();
-}
+function renderTodo() { renderStats(); renderCharts(); renderHeatmap(); renderTabla(); renderAlertas(); renderPrediccion(); }
 
 function renderStats() {
   const total = riesgos.length;
@@ -780,222 +427,57 @@ function renderStats() {
   const pendientes = riesgos.filter(r => r.estado === 'Pendiente').length;
   const cerrados = riesgos.filter(r => r.estado === 'Cerrado').length;
   const pctCerrado = total ? Math.round(cerrados/total*100) : 0;
-
-  const stats = [
+  document.getElementById('stats-grid').innerHTML = [
     { label: 'Total Riesgos', value: total, color: '#1976d2', sub: 'registrados' },
     { label: 'Críticos', value: criticos, color: '#d32f2f', sub: 'Nivel 4 y 5' },
     { label: 'Pendientes', value: pendientes, color: '#f57c00', sub: 'sin atender' },
     { label: 'Tasa de Cierre', value: pctCerrado + '%', color: '#388e3c', sub: `${cerrados} cerrados` },
-  ];
-
-  document.getElementById('stats-grid').innerHTML = stats.map(s => `
-    <div class="stat-card" style="border-top-color:${s.color}">
-      <div class="value" style="color:${s.color}">${s.value}</div>
-      <div class="label">${s.label}</div>
-      <div class="sub">${s.sub}</div>
-    </div>
-  `).join('');
+  ].map(s => `<div class="stat-card" style="border-top-color:${s.color}"><div class="value" style="color:${s.color}">${s.value}</div><div class="label">${s.label}</div><div class="sub">${s.sub}</div></div>`).join('');
 }
 
 function renderCharts() {
-  Object.values(charts).forEach(c => { try { c.destroy(); } catch(e){} });
-  charts = {};
-
-  const porEstado = {
-    Pendiente: riesgos.filter(r=>r.estado==='Pendiente').length,
-    'En revisión': riesgos.filter(r=>r.estado==='En revisión').length,
-    Cerrado: riesgos.filter(r=>r.estado==='Cerrado').length,
-  };
-
-  charts.estado = new Chart(document.getElementById('chart-estado'), {
-    type: 'doughnut',
-    data: {
-      labels: Object.keys(porEstado),
-      datasets: [{ data: Object.values(porEstado), backgroundColor: ['#f57c00','#1976d2','#388e3c'], borderWidth: 0 }]
-    },
-    options: { plugins: { legend: { labels: { color: '#aaaacc' } } } }
-  });
-
+  Object.values(charts).forEach(c => { try { c.destroy(); } catch(e){} }); charts = {};
+  const porEstado = { Pendiente: riesgos.filter(r=>r.estado==='Pendiente').length, 'En revisión': riesgos.filter(r=>r.estado==='En revisión').length, Cerrado: riesgos.filter(r=>r.estado==='Cerrado').length };
+  charts.estado = new Chart(document.getElementById('chart-estado'), { type: 'doughnut', data: { labels: Object.keys(porEstado), datasets: [{ data: Object.values(porEstado), backgroundColor: ['#f57c00','#1976d2','#388e3c'], borderWidth: 0 }] }, options: { plugins: { legend: { labels: { color: '#aaaacc' } } } } });
   const porNivel = [1,2,3,4,5].map(n => riesgos.filter(r=>r.nivel===n).length);
-  charts.nivel = new Chart(document.getElementById('chart-nivel'), {
-    type: 'bar',
-    data: {
-      labels: ['Muy bajo','Bajo','Medio','Alto','Crítico'],
-      datasets: [{ data: porNivel, backgroundColor: ['#388e3c','#689f38','#fbc02d','#f57c00','#d32f2f'], borderWidth: 0 }]
-    },
-    options: {
-      plugins: { legend: { display: false } },
-      scales: { x: { ticks: { color: '#aaaacc' }, grid: { color: '#2a2a3a' } }, y: { ticks: { color: '#aaaacc', stepSize: 1 }, grid: { color: '#2a2a3a' } } }
-    }
-  });
-
-  const cats = {};
-  riesgos.forEach(r => cats[r.categoria] = (cats[r.categoria]||0)+1);
+  charts.nivel = new Chart(document.getElementById('chart-nivel'), { type: 'bar', data: { labels: ['Muy bajo','Bajo','Medio','Alto','Crítico'], datasets: [{ data: porNivel, backgroundColor: ['#388e3c','#689f38','#fbc02d','#f57c00','#d32f2f'], borderWidth: 0 }] }, options: { plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#aaaacc' }, grid: { color: '#2a2a3a' } }, y: { ticks: { color: '#aaaacc', stepSize: 1 }, grid: { color: '#2a2a3a' } } } } });
+  const cats = {}; riesgos.forEach(r => cats[r.categoria] = (cats[r.categoria]||0)+1);
   const catEntries = Object.entries(cats).sort((a,b)=>b[1]-a[1]);
-
-  charts.cat = new Chart(document.getElementById('chart-categoria'), {
-    type: 'bar',
-    data: {
-      labels: catEntries.map(e=>e[0]),
-      datasets: [{ data: catEntries.map(e=>e[1]), backgroundColor: '#7b1fa2', borderWidth: 0, borderRadius: 4 }]
-    },
-    options: {
-      indexAxis: 'y',
-      plugins: { legend: { display: false } },
-      scales: { x: { ticks: { color: '#aaaacc', stepSize: 1 }, grid: { color: '#2a2a3a' } }, y: { ticks: { color: '#aaaacc' }, grid: { color: '#2a2a3a' } } }
-    }
-  });
+  charts.cat = new Chart(document.getElementById('chart-categoria'), { type: 'bar', data: { labels: catEntries.map(e=>e[0]), datasets: [{ data: catEntries.map(e=>e[1]), backgroundColor: '#7b1fa2', borderWidth: 0, borderRadius: 4 }] }, options: { indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#aaaacc', stepSize: 1 }, grid: { color: '#2a2a3a' } }, y: { ticks: { color: '#aaaacc' }, grid: { color: '#2a2a3a' } } } } });
 }
 
 function renderHeatmap() {
-  const cats = [...new Set(riesgos.map(r=>r.categoria))];
-  const niveles = [5,4,3,2,1];
-
-  if (cats.length === 0) {
-    document.getElementById('heatmap-container').innerHTML = '<div class="empty-state">Sin datos suficientes</div>';
-    return;
-  }
-
-  const matrix = {};
-  cats.forEach(c => { matrix[c] = {}; niveles.forEach(n => matrix[c][n] = 0); });
-  riesgos.forEach(r => { if(matrix[r.categoria]) matrix[r.categoria][r.nivel]++; });
-
-  let html = `<div class="heatmap-grid" style="grid-template-columns: 20% repeat(${niveles.length}, 1fr)">`;
-  html += `<div></div>`;
+  const cats = [...new Set(riesgos.map(r=>r.categoria))]; const niveles = [5,4,3,2,1];
+  if (cats.length === 0) { document.getElementById('heatmap-container').innerHTML = '<div class="empty-state">Sin datos suficientes</div>'; return; }
+  const matrix = {}; cats.forEach(c => { matrix[c] = {}; niveles.forEach(n => matrix[c][n] = 0); }); riesgos.forEach(r => { if(matrix[r.categoria]) matrix[r.categoria][r.nivel]++; });
+  let html = `<div class="heatmap-grid" style="grid-template-columns: 20% repeat(${niveles.length}, 1fr)"><div></div>`;
   niveles.forEach(n => { html += `<div class="heatmap-header">N${n}<br><small>${textoNivel(n)}</small></div>`; });
-
-  cats.forEach(cat => {
-    html += `<div class="heatmap-label" title="${cat}">${cat}</div>`;
-    niveles.forEach(n => {
-      const v = matrix[cat][n];
-      const bg = v === 0 ? '#1a1a26' : colorNivel(n);
-      const opacity = v === 0 ? 1 : 0.3 + (Math.min(v,5)/5)*0.7;
-      html += `<div class="heatmap-cell" style="background:${bg};opacity:${opacity}">${v > 0 ? v : ''}<div class="tooltip">${cat} — N${n}: ${v}</div></div>`;
-    });
-  });
-  html += '</div>';
-  document.getElementById('heatmap-container').innerHTML = html;
+  cats.forEach(cat => { html += `<div class="heatmap-label" title="${cat}">${cat}</div>`; niveles.forEach(n => { const v = matrix[cat][n]; const bg = v === 0 ? '#1a1a26' : colorNivel(n); const opacity = v === 0 ? 1 : 0.3 + (Math.min(v,5)/5)*0.7; html += `<div class="heatmap-cell" style="background:${bg};opacity:${opacity}">${v > 0 ? v : ''}<div class="tooltip">${cat} — N${n}: ${v}</div></div>`; }); });
+  html += '</div>'; document.getElementById('heatmap-container').innerHTML = html;
 }
 
 function renderTabla(estadoFiltro='', nivelFiltro='') {
-  const filtrados = riesgos.filter(r =>
-    (!estadoFiltro || r.estado === estadoFiltro) &&
-    (!nivelFiltro || String(r.nivel) === nivelFiltro)
-  );
-
+  const filtrados = riesgos.filter(r => (!estadoFiltro || r.estado === estadoFiltro) && (!nivelFiltro || String(r.nivel) === nivelFiltro));
   document.getElementById('tabla-body').innerHTML = filtrados.map(r => `
     <tr>
       <td><strong>${r.titulo}</strong><br><small style="color:#666680">${(r.descripcion||'').substring(0,50)}...</small></td>
       <td>${r.categoria}</td>
       <td><span class="badge" style="background:${colorNivel(r.nivel)}22;color:${colorNivel(r.nivel)}">N${r.nivel} — ${textoNivel(r.nivel)}</span></td>
       <td><span class="badge" style="background:${colorEstado(r.estado)}22;color:${colorEstado(r.estado)}">${r.estado}</span></td>
+      <td><small style="color:#aaaacc">${r.equipoAsignado || '—'}</small></td>
       <td>${r.reportadoPor?.nombre ?? '—'}</td>
-      <td style="color:#666680">${r.fecha}</td>
+      <td><button class="btn-sm btn-secondary" onclick="abrirModalResoluciones('${r.id}')">📋 Resoluciones</button></td>
     </tr>
-  `).join('') || '<tr><td colspan="6" style="text-align:center;color:#666680;padding:32px">Sin resultados</td></tr>';
+  `).join('') || '<tr><td colspan="7" style="text-align:center;color:#666680;padding:32px">Sin resultados</td></tr>';
 }
 
-function filtrarTabla() {
-  renderTabla(document.getElementById('filtro-estado').value, document.getElementById('filtro-nivel').value);
-}
+function filtrarTabla() { renderTabla(document.getElementById('filtro-estado').value, document.getElementById('filtro-nivel').value); }
 
 function generarAlertas() {
-  const alertas = [];
-  const total = riesgos.length;
+  const alertas = []; const total = riesgos.length;
   if (!total) return [{ emoji:'✅', titulo:'Sin datos', msg:'No hay riesgos registrados.', color:'#388e3c' }];
-
   const criticosPend = riesgos.filter(r=>r.nivel>=4&&r.estado!=='Cerrado').length;
   if (criticosPend > 0) alertas.push({ emoji:'🔴', titulo:'Riesgos críticos sin cerrar', msg:`${criticosPend} riesgo${criticosPend>1?'s':''} requieren atención inmediata.`, color:'#d32f2f' });
-
   const pctPend = riesgos.filter(r=>r.estado==='Pendiente').length/total*100;
   if (pctPend > 60) alertas.push({ emoji:'⚠️', titulo:'Alta tasa de pendientes', msg:`El ${Math.round(pctPend)}% están pendientes.`, color:'#f57c00' });
-
-  const cats = {};
-  riesgos.forEach(r => cats[r.categoria]=(cats[r.categoria]||0)+1);
-  const topCat = Object.entries(cats).sort((a,b)=>b[1]-a[1])[0];
-  if (topCat && topCat[1]/total >= 0.5) alertas.push({ emoji:'📍', titulo:`Concentración en "${topCat[0]}"`, msg:`${Math.round(topCat[1]/total*100)}% de los riesgos.`, color:'#7b1fa2' });
-
-  const promedio = riesgos.reduce((a,r)=>a+r.nivel,0)/total;
-  if (promedio >= 3.5) alertas.push({ emoji:'📈', titulo:'Nivel promedio elevado', msg:`Promedio ${promedio.toFixed(1)} — tendencia media-alta.`, color:'#fbc02d' });
-
-  const pctCerrado = riesgos.filter(r=>r.estado==='Cerrado').length/total*100;
-  if (pctCerrado < 20 && total >= 3) alertas.push({ emoji:'⏳', titulo:'Baja tasa de cierre', msg:`Solo ${Math.round(pctCerrado)}% cerrados.`, color:'#1976d2' });
-
-  if (alertas.length === 0) alertas.push({ emoji:'✅', titulo:'Sistema bajo control', msg:'No se detectan alertas críticas.', color:'#388e3c' });
-
-  return alertas;
-}
-
-function renderAlertas() {
-  const alertas = generarAlertas();
-  document.getElementById('alertas-container').innerHTML = alertas.map(a => `
-    <div class="alerta-card" style="border-left-color:${a.color}">
-      <div class="alerta-emoji">${a.emoji}</div>
-      <div><div class="alerta-titulo" style="color:${a.color}">${a.titulo}</div><div class="alerta-msg">${a.msg}</div></div>
-    </div>
-  `).join('');
-}
-
-function renderPrediccion() {
-  const total = riesgos.length;
-  if (!total) return;
-
-  const pctCriticos = riesgos.filter(r=>r.nivel>=4).length/total;
-  const tasaCierre = riesgos.filter(r=>r.estado==='Cerrado').length/total;
-  const proyeccion30 = Math.round(total * 1.2);
-
-  document.getElementById('prediccion-grid').innerHTML = `
-    <div class="prediccion-item">
-      <div class="prediccion-valor" style="color:#1976d2">${proyeccion30}</div>
-      <div class="prediccion-label">Riesgos proyectados</div>
-      <div class="prediccion-desc">Próximos 30 días</div>
-    </div>
-    <div class="prediccion-item">
-      <div class="prediccion-valor" style="color:#d32f2f">${Math.round(proyeccion30 * pctCriticos)}</div>
-      <div class="prediccion-label">Críticos esperados</div>
-      <div class="prediccion-desc">Basado en tendencia actual</div>
-    </div>
-    <div class="prediccion-item">
-      <div class="prediccion-valor" style="color:#388e3c">${Math.round(proyeccion30 * tasaCierre)}</div>
-      <div class="prediccion-label">Cierres proyectados</div>
-      <div class="prediccion-desc">Al ritmo actual</div>
-    </div>
-  `;
-
-  if (charts.tendencia) { try { charts.tendencia.destroy(); } catch(e){} }
-  charts.tendencia = new Chart(document.getElementById('chart-tendencia'), {
-    type: 'line',
-    data: {
-      labels: ['Hace 5m','Hace 4m','Hace 3m','Hace 2m','Mes pasado','Este mes','Próximo mes','En 2 meses'],
-      datasets: [
-        { label: 'Real', data: [0,0,0,0,0,total,null,null], borderColor: '#1976d2', backgroundColor: '#1976d222', tension: 0.4, pointRadius: 4 },
-        { label: 'Proyección', data: [null,null,null,null,null,total,Math.round(total*1.1),Math.round(total*1.2)], borderColor: '#f57c00', borderDash: [5,5], backgroundColor: '#f57c0022', tension: 0.4, pointRadius: 4 }
-      ]
-    },
-    options: {
-      plugins: { legend: { labels: { color: '#aaaacc' } } },
-      scales: { x: { ticks: { color: '#aaaacc' }, grid: { color: '#2a2a3a' } }, y: { ticks: { color: '#aaaacc', stepSize: 1 }, grid: { color: '#2a2a3a' }, min: 0 } }
-    }
-  });
-
-  document.getElementById('alertas-prediccion').innerHTML = generarAlertas().map(a => `
-    <div class="alerta-card" style="border-left-color:${a.color}">
-      <div class="alerta-emoji">${a.emoji}</div>
-      <div><div class="alerta-titulo" style="color:${a.color}">${a.titulo}</div><div class="alerta-msg">${a.msg}</div></div>
-    </div>
-  `).join('');
-}
-
-// Verificar si ya hay sesión
-const tokenGuardado = localStorage.getItem('TOKEN_API');
-const usuarioGuardado = localStorage.getItem('USUARIO_ACTUAL');
-if (tokenGuardado && usuarioGuardado) {
-  const u = JSON.parse(usuarioGuardado);
-  document.getElementById('usuario-nombre').textContent = u.nombre;
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('dashboard-screen').style.display = 'flex';
-  cargarDatos();
-}
-</script>
-</body>
-</html>
+  const cats = {}; riesgos.forEach(r => cats

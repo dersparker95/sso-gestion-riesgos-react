@@ -14,19 +14,18 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-const EQUIPOS_POR_CATEGORIA = {
-  'Electricidad': 'Equipo Eléctrico',
-  'Orden y limpieza': 'Equipo Limpieza',
-  'EPP': 'Equipo EPP',
-  'Herramientas': 'Equipo Herramientas',
-  'Altura': 'Equipo Altura',
-  'Químicos': 'Equipo Químico',
-  'Incendio': 'Equipo Emergencias',
-  'Tránsito': 'Equipo Tránsito',
-  'Maquinaria': 'Equipo Maquinaria',
-  'Sustancias peligrosas': 'Equipo Químico',
-  'Otro': 'Equipo General',
-};
+async function buscarEquipoPorCategoria(categoria) {
+  try {
+    const { rows } = await pool.query(
+      `SELECT nombre FROM equipos WHERE categorias @> $1::jsonb LIMIT 1`,
+      [JSON.stringify([categoria])]
+    );
+    if (rows.length > 0) return rows[0].nombre;
+    return null;
+  } catch (e) {
+    return null;
+  }
+}
 
 async function inicializarDB() {
   try {
@@ -62,7 +61,6 @@ async function inicializarDB() {
     await pool.query(`ALTER TABLE riesgos ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT NOW();`);
     await pool.query(`ALTER TABLE riesgos ADD COLUMN IF NOT EXISTS equipo_asignado TEXT;`);
 
-    // Tabla equipos
     await pool.query(`
       CREATE TABLE IF NOT EXISTS equipos (
         id TEXT PRIMARY KEY,
@@ -73,7 +71,6 @@ async function inicializarDB() {
       );
     `);
 
-    // Tabla miembros de equipo
     await pool.query(`
       CREATE TABLE IF NOT EXISTS equipo_miembros (
         id TEXT PRIMARY KEY,
@@ -84,7 +81,6 @@ async function inicializarDB() {
       );
     `);
 
-    // Tabla resoluciones
     await pool.query(`
       CREATE TABLE IF NOT EXISTS resoluciones (
         id TEXT PRIMARY KEY,
@@ -155,7 +151,6 @@ function permitirRoles(...rolesPermitidos) {
 
 app.get('/', (req, res) => res.json({ mensaje: 'Backend SSO Gestion de Riesgos funcionando', version: '1.0.0' }));
 app.get('/v1/health', (req, res) => res.json({ status: 'ok', service: 'sso-gestion-riesgos-api' }));
-app.get('/v1/equipos-categoria', middlewareAuth, (req, res) => res.json(EQUIPOS_POR_CATEGORIA));
 
 // AUTH
 app.post('/v1/auth/login', async (req, res) => {
@@ -232,7 +227,7 @@ app.delete('/v1/equipos/:id', middlewareAuth, permitirRoles('Administrador'), as
   res.status(204).send();
 });
 
-// MIEMBROS DE EQUIPO
+// MIEMBROS
 app.post('/v1/equipos/:id/miembros', middlewareAuth, permitirRoles('Administrador'), async (req, res) => {
   const { id } = req.params;
   const { usuario_id } = req.body;
@@ -303,7 +298,10 @@ app.post('/v1/incidents', middlewareAuth, async (req, res) => {
   try {
     const { titulo, descripcion, categoria, nivel, estado, fecha, evidencias, reportadoPor } = req.body;
     if (!titulo || !descripcion || !categoria || !nivel || !reportadoPor) return res.status(400).json({ message: 'Faltan datos obligatorios' });
-    const equipoAsignado = EQUIPOS_POR_CATEGORIA[categoria] || 'Equipo General';
+
+    // Buscar equipo en la base de datos por categoría
+    const equipoAsignado = await buscarEquipoPorCategoria(categoria) || 'Sin equipo asignado';
+
     const id = Date.now().toString();
     await pool.query(
       'INSERT INTO riesgos (id, titulo, descripcion, categoria, nivel, estado, fecha, evidencias, reportado_por, equipo_asignado, created_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,NOW())',
